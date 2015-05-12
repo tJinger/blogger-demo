@@ -26,13 +26,14 @@
         </a>
       </h3>
       <h5><%= post.content %></h5>
-      <div><img src ='./public/images/<%= post.image %>'/></div>
+      <div><img src ='./public/upload/<%= post.image %>'/></div>
       <div>[<%= post.updateDate %>]</div>
-      <% comments.forEach(function(comment){ %>
-         <% if (post.id === comments.postId) {%>
-            <div><%= comment.content %> by <%= comment.author %> [<%= comment.date %>]</div>
+
+     <% comments.forEach(function(comment){ %>
+        <% if (post.id === comment.postId) {%>
+             <div><%= comment.content %> by <%= comment.author %> [<%= comment.date %>]</div>
          <% } %>
-      <% }); %>
+      <% }) %> 
       <form action="/post/comment/<%= post.id %>" method="post">
          <div class="form-group">
              <label>Comment</label>
@@ -42,7 +43,7 @@
          <button type="submit" class="btn btn-warning btn-sm">Login & Post</button>
        </form>
        <hr>
-    <% }); %>
+    <% }) %>
 </div>
 </div>
 </body>

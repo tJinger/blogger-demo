@@ -45,15 +45,15 @@
            <tr><td><%= post.title %></td><td>[<%= post.createDate %>]</td><td>[<%= post.updateDate %>]</td>
             <td><a href="/post/<%= post.id %>" class="btn btn-default btn-sm">Edit</a></td>
             <td><a href="/post/delete/<%= post.id %>" class="btn btn-default btn-sm">Delete</a></td></tr>
-        <% }); %>
+        <% })%>
         </table>
 
         <hr>
         <h3> Latest Comments </h3>
-        <% if ( comments.size > 0) { %>
+        <% if ( comments.length > 0) { %>
             <% comments.forEach(function(comment){ %>
-             <div><%= comment.content %> by <%= comment.author %> [<%= comment.date %>]<a href="/post/<%= comment.postId %>" class="btn btn-default btn-sm">Post</a></div>
-            <% }); %>
+             <div><%= comment.content %> by <%= comment.author %> [<%= comment.date %>]<a href="/post/<%= comment.postId %>">post</a></div>
+            <% }) %>
         <% } %>
 </div>
 </body>

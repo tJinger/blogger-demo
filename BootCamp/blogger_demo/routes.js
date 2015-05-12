@@ -38,10 +38,14 @@ module.exports = (app) => {
 
   app.get('/profile', isLoggedIn, then(async(req, res) => {
     let allPost = await Post.promise.find({username: req.user.username})
-    let allComments = []
-    allPost.forEach(function(post) {
-      allComments.push(Comment.promise.find({postId: post._id}))
+    let postIds = []
+    allPost.forEach(function (post){
+      postIds.push(post._id)
     })
+
+    let allComments = await Comment.promise.find({postId: {$in : postIds}})
+
+    console.log(allComments)
 
     res.render('profile.ejs', {
       user: req.user,
@@ -134,10 +138,12 @@ module.exports = (app) => {
     let allPost = await Post.promise.find({username: user.username})
     if (!allPost) res.send(404, 'Not found')
     
-    let allComments = []
-    allPost.forEach(function(post) {
-      allComments.push(Comment.promise.find({postId: post._id}))
+    let postIds = []
+    allPost.forEach(function (post){
+      postIds.push(post._id)
     })
+
+    let allComments = await Comment.promise.find({postId: {$in : postIds}})
 
     res.render('blog.ejs', {
       blogTitle: blogTitle,
