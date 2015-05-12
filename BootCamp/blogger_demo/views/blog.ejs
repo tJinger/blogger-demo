@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <title>Blogs</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="col-sm-6 col-sm-offset-3">
+
+    <h1><span class="fa fa-sign-in"></span> <%= blogTitle %></h1>
+    
+    <% if (typeof message !== 'undefined' && message.length > 0) {
+        %>
+       <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
+    <% posts.forEach(function(post){ %>
+      <h3>
+        <a href="/post/<%= post.id %>">
+          <%= post.title %>
+        </a>
+      </h3>
+      <h5><%= post.content %></h5>
+      <div><img src ='./public/images/<%= post.image %>'/></div>
+      <div>[<%= post.updateDate %>]</div>
+      <% comments.forEach(function(comment){ %>
+         <% if (post.id === comments.postId) {%>
+            <div><%= comment.content %> by <%= comment.author %> [<%= comment.date %>]</div>
+         <% } %>
+      <% }); %>
+      <form action="/post/comment/<%= post.id %>" method="post">
+         <div class="form-group">
+             <label>Comment</label>
+             <input type="text" class="form-control" name="comment">
+         </div>
+         <button type="submit" class="btn btn-warning btn-sm">Post</button>
+         <button type="submit" class="btn btn-warning btn-sm">Login & Post</button>
+       </form>
+       <hr>
+    <% }); %>
+</div>
+</div>
+</body>
+</html>
